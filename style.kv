@@ -1,4 +1,45 @@
 #:kivy 2.1.0
+
 <Main>:
-    Label:
-        text:"THIS IS A TEST"
+    cols:1
+ 
+    FloatLayout:
+        BoxLayout:
+            orientation:'vertical'
+            size_hint:[1,0.3]
+            pos_hint:{'center_x':0.5,'center_y':0.5}
+            spacing:10
+
+            FloatInput:
+                id:"AmountInput"
+                size_hint:[0.8,0.2]
+                pos_hint:{'center_x':0.5}
+                background_color:[0,0,0,1]
+                foreground_color:[1,1,1,1]
+                multiline:False
+                halign:'center'
+                padding:(self.height-self.line_height)/2
+                font_size:dp(30)
+                hint_text:"Enter Amount"
+                hint_text_color:[0.5,0.5,0.5,0.5]
+            
+            Spinner:
+                size_hint:[0.3,0.1]
+                pos_hint:{'center_x':0.5}
+                text:"categories"
+                values:['expcat1','expcat2','cat3','cat4']
+                sync_height:True
+                
+
+            Button:
+                id:"submit"
+                text:"Submit"
+                size_hint:[0.3,0.2]
+                pos_hint:{'center_x':0.5,'center_y':0.5}
+
+        BoxLayout:
+            size_hint:[1,0.1]
+            pos_hint:{'center_x':0.5,'center_y':0.05}
+            
+            Label:
+                text:"@ceimos"
