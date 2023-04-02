@@ -11,7 +11,7 @@
             spacing:5
 
             FloatInput:
-                id:"AmountInput"
+                id:amount_input
                 size_hint:[0.8,0.2]
                 pos_hint:{'center_x':0.5}
                 background_color:[0,0,0,1]
@@ -25,6 +25,7 @@
             
 
             Spinner:
+                id:category_dropdown
                 size_hint:[0.8,0.15]
                 pos_hint:{'center_x':0.5}
                 text:"categories"
@@ -32,6 +33,7 @@
                 sync_height:True
                 
             Spinner:
+                id:payment_mode
                 size_hint:[0.8,0.15]
                 pos_hint:{'center_x':0.5}
                 text:"Mode"
@@ -39,7 +41,7 @@
                 sync_height:True
             
             TextInput:
-                id:"Remarks"
+                id:remarks
                 size_hint:[0.8,0.4]
                 pos_hint:{'center_x':0.5}
                 background_color:[0,0,0,1]
@@ -51,7 +53,7 @@
                 hint_text_color:[0.5,0.5,0.5,0.5]
 
             Button:
-                id:"submit"
+                id:submit
                 text:"Submit"
                 size_hint:[0.8,0.2]
                 pos_hint:{'center_x':0.5,'center_y':0.5}

@@ -13,7 +13,9 @@ class DbOperation(): #CONVENTION - USE 'Db' as object name to instanciate this c
                     main 
                     (SNO INTEGER PRIMARY KEY, 
                     AMOUNT INTEGER, 
-                    DATE, TIME, 
+                    DATE DATE, 
+                    TIME TIME,
+                    MODE CHAR(30),
                     REMARK VARCHAR, 
                     CATEGORY CHAR(60)); 
                     ''')
@@ -48,8 +50,8 @@ class DbOperation(): #CONVENTION - USE 'Db' as object name to instanciate this c
         self.connect_database(primary_database_name)
         self.cur.execute('''
                     INSERT INTO
-                    main (AMOUNT,DATE,TIME,REMARK,CATEGORY)
-                    VALUES(?,?,?,?,?);''',values)
+                    main (AMOUNT,DATE,TIME,MODE,REMARK,CATEGORY)
+                    VALUES(?,?,?,?,?,?);''',values)
         self.close_database()
 
     #FetchCategory_Values
@@ -75,8 +77,9 @@ class DbOperation(): #CONVENTION - USE 'Db' as object name to instanciate this c
         for rows in self.results.fetchall():print(rows)
         self.close_database()
 
-'''
+"""
 Db=DbOperation()
 Db.add_category('mango')
-Db.Tests()
-'''
+Db.add_category('apple')
+Db.add_category('banana')
+"""

@@ -13,6 +13,8 @@ import regex as re #USED for floatInput filter.
 
 from record import * #DATABASE OPERATIONS - DbOperations()
 
+from datetime import date,time,datetime
+
 Builder.load_file('style.kv')
 
 class FloatInput(TextInput): 
@@ -31,21 +33,26 @@ class FloatInput(TextInput):
                 for s in substring.split('.', 1)
             )
         return super().insert_text(s, from_undo=from_undo)
-    
-class DbInitiate(): 
-    def __init__(self) -> None:
-        self.db=DbOperation()
 
 class Main(GridLayout):
-    db=DbInitiate();db=db.db
+    db=DbOperation()
     categories=ListProperty(db.fetch_categories())
+    
 
-    def submit(self):
-        print(self.categories)
+    def submit(self): 
+        input_list=[
+            float(self.ids.amount_input.text),
+            date.today().strftime(f'%Y-%m-%d'),
+            datetime.now().time().strftime('%H:%M:%S'),
+            self.ids.payment_mode.text,
+            self.ids.remarks.text,
+            self.ids.category_dropdown.text,
+            ]
+        #SEQUENCE in the list IS IMPORTANT
+        self.db.record_expense(tuple(input_list))
 
 class Fibonnacci(App): #CODE NAME - FIBONNACI.
     def build(self):
-        DbInitiate() #SETS up database and tables - if not exists.
         return Main()
 
 if __name__=="__main__":
