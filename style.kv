@@ -6,9 +6,9 @@
     FloatLayout:
         BoxLayout:
             orientation:'vertical'
-            size_hint:[1,0.3]
+            size_hint:[1,0.5]
             pos_hint:{'center_x':0.5,'center_y':0.5}
-            spacing:10
+            spacing:5
 
             FloatInput:
                 id:"AmountInput"
@@ -23,19 +23,39 @@
                 hint_text:"Enter Amount"
                 hint_text_color:[0.5,0.5,0.5,0.5]
             
+
             Spinner:
-                size_hint:[0.3,0.1]
+                size_hint:[0.8,0.15]
                 pos_hint:{'center_x':0.5}
                 text:"categories"
-                values:['expcat1','expcat2','cat3','cat4']
+                values:root.categories
                 sync_height:True
                 
+            Spinner:
+                size_hint:[0.8,0.15]
+                pos_hint:{'center_x':0.5}
+                text:"Mode"
+                values:['UPI','Card','Cash','Netbanking']
+                sync_height:True
+            
+            TextInput:
+                id:"Remarks"
+                size_hint:[0.8,0.4]
+                pos_hint:{'center_x':0.5}
+                background_color:[0,0,0,1]
+                foreground_color:[1,1,1,1]
+                multiline:True
+                halign:'center'
+                font_size:dp(15)
+                hint_text:"Add Remarks"
+                hint_text_color:[0.5,0.5,0.5,0.5]
 
             Button:
                 id:"submit"
                 text:"Submit"
-                size_hint:[0.3,0.2]
+                size_hint:[0.8,0.2]
                 pos_hint:{'center_x':0.5,'center_y':0.5}
+                on_release:root.submit()
 
         BoxLayout:
             size_hint:[1,0.1]
