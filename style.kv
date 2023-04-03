@@ -4,6 +4,7 @@
     cols:1
  
     FloatLayout:
+        id:floatlay
         BoxLayout:
             orientation:'vertical'
             size_hint:[1,0.5]
@@ -22,6 +23,7 @@
                 font_size:dp(30)
                 hint_text:"Enter Amount"
                 hint_text_color:[0.5,0.5,0.5,0.5]
+                input_type:'number'
             
 
             Spinner:
@@ -36,7 +38,7 @@
                 id:payment_mode
                 size_hint:[0.8,0.15]
                 pos_hint:{'center_x':0.5}
-                text:"Mode"
+                text:"UPI"
                 values:['UPI','Card','Cash','Netbanking']
                 sync_height:True
             
@@ -65,3 +67,9 @@
             
             Label:
                 text:"@ceimos"
+
+<MessagePopup@ButtonBehavior+Label>:
+    orientation:'vertical'
+    size_hint:[0.4,0.4]
+    pos_hint:{'center_x':0.5,'center_y':0.5}
+    font_size:dp(18)

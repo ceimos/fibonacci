@@ -16,7 +16,7 @@ class DbOperation(): #CONVENTION - USE 'Db' as object name to instanciate this c
                     DATE DATE, 
                     TIME TIME,
                     MODE CHAR(30),
-                    REMARK VARCHAR, 
+                    REMARK VARCHAR DEFAULT NULL, 
                     CATEGORY CHAR(60)); 
                     ''')
         
@@ -77,9 +77,8 @@ class DbOperation(): #CONVENTION - USE 'Db' as object name to instanciate this c
         for rows in self.results.fetchall():print(rows)
         self.close_database()
 
-"""
-Db=DbOperation()
-Db.add_category('mango')
-Db.add_category('apple')
-Db.add_category('banana')
-"""
+if __name__=='__main__':
+    Db=DbOperation()
+    Db.add_category('mango')
+    Db.add_category('apple')
+    Db.add_category('banana')
