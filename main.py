@@ -10,6 +10,7 @@ from kivy.uix.spinner import Spinner
 from kivy.properties import ListProperty
 from kivy.uix.label import Label
 from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.popup import Popup
 
 import regex as re #USED for floatInput filter.
 
@@ -36,13 +37,8 @@ class FloatInput(TextInput):
             )
         return super().insert_text(s, from_undo=from_undo)
 
-class MessagePopup(ButtonBehavior,Label):
-    def on_release(self):
-         parent=self.parent.parent.ids
-         parent.floatlay.remove_widget(parent.floatlay.children[0])
-         parent.remarks.hint_text='Remarks'
-         parent.remarks.disabled=False
-         parent.amount_input.disabled=False
+class MessagePopUp(Popup):
+    pass
 
 class Main(GridLayout):
     db=DbOperation()
@@ -51,7 +47,13 @@ class Main(GridLayout):
     def submit(self):
 
         if self.ids.amount_input.text=='':
-            self.amount_validation_msg()
+            message=Label(text="Press Anywhere To dismiss.", color=[1,0,0,1],font_size=dp(15))
+            popup=MessagePopUp(title='Must Enter Amount!',
+                           content=message,
+                           separator_color=[1,0,0,0.5],
+                           title_size=dp(25))
+            popup.open()
+
 
         else:
             input_list=[
@@ -65,29 +67,17 @@ class Main(GridLayout):
             #SEQUENCE in the list IS IMPORTANT
             self.db.record_expense(tuple(input_list))
             self.reset_values()
-            self.record_success_msg()
+            message=Label(text="Press Anywhere To dismiss.", color=[0,1,0,1],font_size=dp(15))
+            popup=MessagePopUp(title='Success!',
+                           content=message,
+                           separator_color=[0,1,0,0.5])
+            popup.open()
 
     def reset_values(self):
         self.ids.amount_input.text=''
         self.ids.payment_mode.text='UPI'
         self.ids.remarks.text=''
         self.ids.category_dropdown.text='Category'
-
-    def record_success_msg(self):
-        self.ids.remarks.hint_text=''
-        self.ids.remarks.disabled=True
-        self.ids.amount_input.disabled=False
-        self.ids.floatlay.add_widget(MessagePopup(
-            text='Success!',
-            color=[0,1,0,1],))
-        self.ids.floatlay.children[0].id='this'
-    
-    def amount_validation_msg(self):
-        self.ids.remarks.hint_text=''
-        self.ids.remarks.disabled=True
-        self.ids.floatlay.add_widget(MessagePopup(
-            text='Must Enter Amount!',
-            color=[1,0,0,1],))
     
 class Fibonnacci(App): #CODE NAME - FIBONNACI.    
     def build(self):
