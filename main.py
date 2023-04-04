@@ -11,6 +11,7 @@ from kivy.properties import ListProperty
 from kivy.uix.label import Label
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.popup import Popup
+from kivy.uix.tabbedpanel import TabbedPanel
 
 import regex as re #USED for floatInput filter.
 

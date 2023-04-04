@@ -12,81 +12,99 @@
     BoxLayout:
         id:QuickView
         orientation:'horizontal'
-        size_hint:[1,0.06]
+        size_hint: [1, 0.06]
         Label:
             id:QuickBudgetView_week
+            halign:"left"
             color:[0.8,0.8,0.8,1]
             text:'This Week : x/total'
         Label:
+            halign:'right'
             id:QuickBudgetView_month
             color:[0.8,0.8,0.8,1]
             text:'This Month : x/total'
             
-    
-    FloatLayout:
-        id:floatlay
-        BoxLayout:
-            orientation:'vertical'
-            size_hint:[1,0.8]
-            pos_hint:{'center_x':0.5,'y':0.06+0.07}
-            spacing:5
+    TabbedPanel:
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        do_default_tab: False
+        tab_pos:'top_mid'
+        tab_width:root.size[0]/4
+        background_color:[0,0,0,1]
 
-            FloatInput:
-                id:amount_input
-                size_hint:[0.8,0.2]
-                pos_hint:{'center_x':0.5}
-                background_color:[0,0,0,1]
-                foreground_color:[1,1,1,1]
-                multiline:False
-                halign:'center'
-                padding:(self.height-self.line_height)/2
-                font_size:dp(30)
-                hint_text:"Enter Amount"
-                hint_text_color:[0.5,0.5,0.5,0.5]
-                input_type:'number'
+        TabbedPanelItem:
+            text: 'RECORD'
+            FloatLayout:
+                id:floatlay
+                BoxLayout:
+                    orientation:'vertical'
+                    size_hint:[1,0.8]
+                    pos_hint:{'center_x':0.5,'y':0.06+0.07}
+                    spacing:5
+
+                    FloatInput:
+                        id:amount_input
+                        size_hint:[0.8,0.2]
+                        pos_hint:{'center_x':0.5}
+                        background_color:[0,0,0,1]
+                        foreground_color:[1,1,1,1]
+                        multiline:False
+                        halign:'center'
+                        padding:(self.height-self.line_height)/2
+                        font_size:dp(30)
+                        hint_text:"Enter Amount"
+                        hint_text_color:[0.5,0.5,0.5,0.5]
+                        input_type:'number'
+                    
+
+                    Spinner:
+                        id:category_dropdown
+                        size_hint:[0.8,0.15]
+                        pos_hint:{'center_x':0.5}
+                        text:"categories"
+                        values:root.categories
+                        sync_height:True
+                        
+                    Spinner:
+                        id:payment_mode
+                        size_hint:[0.8,0.15]
+                        pos_hint:{'center_x':0.5}
+                        text:"UPI"
+                        values:['UPI','Card','Cash','Netbanking']
+                        sync_height:True
+                    
+                    TextInput:
+                        id:remarks
+                        size_hint:[0.8,0.4]
+                        pos_hint:{'center_x':0.5}
+                        background_color:[0,0,0,1]
+                        foreground_color:[1,1,1,1]
+                        multiline:True
+                        halign:'center'
+                        font_size:dp(15)
+                        hint_text:"Add Remarks"
+                        hint_text_color:[0.5,0.5,0.5,0.5]
+
+                    Button:
+                        id:submit
+                        text:"Submit"
+                        size_hint:[0.8,0.2]
+                        pos_hint:{'center_x':0.5,'center_y':0.5}
+                        on_release:root.submit()
+        TabbedPanelItem:
+            text:'ANALYZE'
+
+        TabbedPanelItem:
+            text:'VIEW'
+
+        TabbedPanelItem:
+            text:'BUDGET'
+
+    BoxLayout:
+        size_hint:[1,0.1]
+        pos_hint:{'center_x':0.5,'center_y':0.05}
             
-
-            Spinner:
-                id:category_dropdown
-                size_hint:[0.8,0.15]
-                pos_hint:{'center_x':0.5}
-                text:"categories"
-                values:root.categories
-                sync_height:True
-                
-            Spinner:
-                id:payment_mode
-                size_hint:[0.8,0.15]
-                pos_hint:{'center_x':0.5}
-                text:"UPI"
-                values:['UPI','Card','Cash','Netbanking']
-                sync_height:True
-            
-            TextInput:
-                id:remarks
-                size_hint:[0.8,0.4]
-                pos_hint:{'center_x':0.5}
-                background_color:[0,0,0,1]
-                foreground_color:[1,1,1,1]
-                multiline:True
-                halign:'center'
-                font_size:dp(15)
-                hint_text:"Add Remarks"
-                hint_text_color:[0.5,0.5,0.5,0.5]
-
-            Button:
-                id:submit
-                text:"Submit"
-                size_hint:[0.8,0.2]
-                pos_hint:{'center_x':0.5,'center_y':0.5}
-                on_release:root.submit()
-
-        BoxLayout:
-            size_hint:[1,0.1]
-            pos_hint:{'center_x':0.5,'center_y':0.05}
-            
-            Label:
-                text:"@ceimos"
+        Label:
+            text:"@ceimos"
 
 <MessagePopUp@Popup>:
     size_hint:[0.82,0.2]
@@ -94,3 +112,10 @@
     title_size:dp(30)
     title_align:'center'
     auto_dismiss:True
+
+<TabbedPanelItem>:
+    background_color: [0,0,0,1]
+    background_down:''
+    background_normal:''
+    border_color:1,0,0,1
+    color: [1,1,1,1] if self.state=='down' else [0.5,0.5,0.5,1]
