@@ -74,6 +74,7 @@ class Main(GridLayout):
             popup=MessagePopUp(title='Success!',
                            content=message,
                            separator_color=[0,1,0,0.5])
+            self.ids.ActiveTableView.update_data()
             popup.open()
 
     def reset_values(self):

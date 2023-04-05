@@ -24,6 +24,11 @@ class TableView(RecycleView):
         columns=['category','remarks','date','time','mode','amount']
         list_of_dict=[dict(zip(columns,row)) for row in rows]
         return list_of_dict
+    
+    def update_data(self):
+        #called inside submit Button.
+        #Updates TableView with new data everytime a new entry is made.
+        self.data=self.rowdata()
 
 if __name__=="__main__":
     TableView().rowdata()

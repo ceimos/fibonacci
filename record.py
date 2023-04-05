@@ -71,7 +71,8 @@ class DbOperation(): #CONVENTION - USE 'Db' as object name to instanciate this c
         self.connect_database(primary_database_name)
         results=self.cur.execute('''
                             SELECT category,remark,date,time,mode,amount
-                            FROM main;
+                            FROM main
+                            ORDER BY sno DESC;
         ''')
         results=results.fetchall()
         self.close_database()
