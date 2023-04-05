@@ -67,6 +67,15 @@ class DbOperation(): #CONVENTION - USE 'Db' as object name to instanciate this c
             lis.append(results[i][0])
         return lis
     
+    def fetch_rows_all(self):
+        self.connect_database(primary_database_name)
+        results=self.cur.execute('''
+                            SELECT category,remark,date,time,mode,amount
+                            FROM main;
+        ''')
+        results=results.fetchall()
+        self.close_database()
+        return results
 
     def Tests(self): #USE for debugging.
         self.connect_database(primary_database_name)
@@ -82,3 +91,4 @@ if __name__=='__main__':
     Db.add_category('mango')
     Db.add_category('apple')
     Db.add_category('banana')
+    Db.fetch_rows_all()

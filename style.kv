@@ -95,6 +95,7 @@
 
         TabbedPanelItem:
             text:'VIEW'
+            TableView:
 
         TabbedPanelItem:
             text:'BUDGET'
@@ -119,3 +120,32 @@
     background_normal:''
     border_color:1,0,0,1
     color: [1,1,1,1] if self.state=='down' else [0.5,0.5,0.5,1]
+
+<TableViewRow>:
+    orientation: 'horizontal'
+    Label:
+        text: root.category
+    Label:
+        text: root.remarks
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            orientation:'horizontal'
+            Label:
+                text:root.date
+            Label:
+                text:root.time
+        Label:
+            text:root.mode
+    Label:
+        text:str(root.amount)
+
+<TableView>:
+    viewclass: 'TableViewRow'
+    RecycleBoxLayout:
+        default_size: None, dp(56)
+        default_size_hint: 1, None
+        default_spacing:dp(60)
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'

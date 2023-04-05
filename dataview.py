@@ -1,90 +1,29 @@
-from kivy.app import App
-from kivy.lang import Builder
-from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import StringProperty,NumericProperty
 from kivy.uix.recycleview import RecycleView
-from kivy.uix.popup import Popup
-from kivy.uix.boxlayout import BoxLayout
 
-Builder.load_string('''
-#:kivy 1.10.0
-#: import Popup kivy.uix.popup
+from record import *
 
-<MessageBox>:
-    title: 'Popup Message Box'
-    size_hint: None, None
-    size: 400, 400
-
-    BoxLayout:
-        orientation: 'vertical'
-        Label:
-            text: root.message
-        Button:
-            size_hint: 1, 0.2
-            text: 'OK'
-            on_press: root.dismiss()
-
-<RecycleViewRow>:
-    orientation: 'horizontal'
-    Label:
-        text: root.category
-    Label:
-        text: root.remarks
-    BoxLayout:
-        orientation:'vertical'
-        Label:
-            text:root.date
-        Label:
-            text:root.time
-        Label:
-            text:root.mode
-    Label:
-        text:root.amount
-
-<MainScreen>:
-    viewclass: 'RecycleViewRow'
-    RecycleBoxLayout:
-        default_size: None, dp(56)
-        default_size_hint: 1, None
-        default_spacing:dp(30)
-        size_hint_y: None
-        height: self.minimum_height
-        orientation: 'vertical'                    
-                    ''')
-
-class MessageBox(Popup):
-    message = StringProperty()
-
-class RecycleViewRow(BoxLayout):
+class TableViewRow(BoxLayout):
     category = StringProperty()   
     remarks = StringProperty()
     date = StringProperty()
     time = StringProperty()
     mode = StringProperty()
-    amount = StringProperty()
+    amount = NumericProperty()
 
-class MainScreen(RecycleView):    
+class TableView(RecycleView):
+    db=DbOperation()
+
     def __init__(self, **kwargs):
-        super(MainScreen, self).__init__(**kwargs)
-        self.data = [{'category': "Button " + str(x), 
-                      'remarks': str(x),
-                      'date': str(x),
-                      'time': str(x),
-                      'mode': str(x),
-                      'amount': 'amount'} 
-                      for x in range(3)]
+        super(TableView, self).__init__(**kwargs)
+        self.data = self.rowdata()
 
-    def message_box(self, message):
-        p = MessageBox()
-        p.message = message
-        p.open() 
-        print('test press: ', message)
+    def rowdata(self):
+        rows=self.db.fetch_rows_all()
+        columns=['category','remarks','date','time','mode','amount']
+        list_of_dict=[dict(zip(columns,row)) for row in rows]
+        return list_of_dict
 
-class TestApp(App):
-    title = "RecycleView Direct Test"
-
-    def build(self):
-        return MainScreen()
-
-if __name__ == "__main__":
-    TestApp().run()
+if __name__=="__main__":
+    TableView().rowdata()

@@ -7,15 +7,17 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.metrics import dp,inch
 from kivy.uix.textinput import TextInput
 from kivy.uix.spinner import Spinner
-from kivy.properties import ListProperty
+from kivy.properties import ListProperty,StringProperty
 from kivy.uix.label import Label
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.popup import Popup
 from kivy.uix.tabbedpanel import TabbedPanel
+from kivy.uix.recycleview import RecycleView
 
 import regex as re #USED for floatInput filter.
 
 from record import * #DATABASE OPERATIONS - DbOperations()
+from dataview import * #DataTableView 
 
 from datetime import date,datetime
 
@@ -80,7 +82,7 @@ class Main(GridLayout):
         self.ids.remarks.text=''
         self.ids.category_dropdown.text='Category'
     
-class Fibonnacci(App): #CODE NAME - FIBONNACI.    
+class Fibonnacci(App): #CODE NAME - FIBONNACI.
     def build(self):
         return Main()
 
