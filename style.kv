@@ -124,29 +124,56 @@
 
 <TableViewRow>:
     orientation: 'horizontal'
+    spacing:10
+    canvas.before:
+        Color:
+            rgba:0.6,0.6,0.6,0.4
+        Rectangle:
+            pos:self.pos
+            size:self.size
     Label:
         text: root.category
+        size_hint:[0.21,1]
+        text_size:self.size
+        valign:'center'
+        halign:'center'
     Label:
         text: root.remarks
+        size_hint:[0.35,1]
+        text_size:self.size
+        valign:'center'
     BoxLayout:
+        id:CompositeBox
         orientation:'vertical'
-        BoxLayout:
-            orientation:'horizontal'
-            Label:
-                text:root.date
-            Label:
-                text:root.time
+        size_hint:[0.21,1]
+        pos_hint:{'center_x':0.5,'center_y':0.5}
+        Label:
+            text:root.date
+            font_size:dp(12)
+        Label:
+            text:root.time
+            font_size:dp(12)
         Label:
             text:root.mode
+            font_size:dp(15)
+            text_size:self.size
+            halign:'center'
     Label:
+        size_hint:[0.21,1]
         text:str(root.amount)
+        text_size:self.size
+        valign:'center'
 
 <TableView>:
     viewclass: 'TableViewRow'
+    background_color:[1,1,0,1]
+
     RecycleBoxLayout:
-        default_size: None, dp(56)
-        default_size_hint: 1, None
-        default_spacing:dp(60)
+        default_size: 1, dp(56)
+        default_size_hint: 0.95, None
+        default_pos_hint:{'center_x':0.5,'center_y':0.5}
         size_hint_y: None
         height: self.minimum_height
         orientation: 'vertical'
+        spacing:5
+        padding:5

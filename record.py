@@ -70,7 +70,10 @@ class DbOperation(): #CONVENTION - USE 'Db' as object name to instanciate this c
     def fetch_rows_all(self):
         self.connect_database(primary_database_name)
         results=self.cur.execute('''
-                            SELECT category,remark,date,time,mode,amount
+                            SELECT category,remark,
+                            strftime("%d",date),
+                            strftime("%H:%M",time),
+                            mode,amount
                             FROM main
                             ORDER BY sno DESC;
         ''')
