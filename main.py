@@ -15,11 +15,12 @@ from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.recycleview import RecycleView
 
 import regex as re #USED for floatInput filter.
+from datetime import date,datetime
 
 from record import * #DATABASE OPERATIONS - DbOperations()
-from dataview import * #DataTableView 
+from dataview import * #Table View of all Transactions
+from analyse import * #Data Analysis Function and Graphs.
 
-from datetime import date,datetime
 
 Builder.load_file('style.kv')
 
