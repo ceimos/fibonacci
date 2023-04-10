@@ -58,7 +58,7 @@ class DbOperation(): #CONVENTION - USE 'Db' as object name to instanciate this c
     def fetch_categories(self):
         self.connect_database(primary_database_name)
         results=self.cur.execute('''
-                            SELECT DISTINCT CATEGORY FROM CATEGORY;
+                            SELECT DISTINCT category FROM main;
         ''')
         results=results.fetchall()
         self.close_database()
@@ -80,6 +80,48 @@ class DbOperation(): #CONVENTION - USE 'Db' as object name to instanciate this c
         results=results.fetchall()
         self.close_database()
         return results
+    
+    def data_for_pie_chart(self):
+        self.connect_database(primary_database_name)
+        self.results=self.cur.execute(
+            '''
+                SELECT SUM(amount)
+                FROM main
+                GROUP BY category;
+            '''
+        )
+        lis=[]
+        for rows in self.results.fetchall():lis.append(rows[0])
+        self.close_database()
+        return lis
+    
+    def data_for_bar_month(self):
+        self.connect_database(primary_database_name)
+        self.results=self.cur.execute(
+            '''
+                SELECT strftime('%m',date) AS month, SUM(amount)
+                FROM main
+                GROUP BY month;
+            '''
+        )
+        lis={'months':[],'volume':[]}
+        for rows in self.results.fetchall():lis['volume'].append(rows[1]);lis['months'].append(rows[0])
+        self.close_database()
+        return lis
+    
+    def data_for_bar_year(self):
+        self.connect_database(primary_database_name)
+        self.results=self.cur.execute(
+            '''
+                SELECT strftime('%Y',date) AS year, SUM(amount)
+                FROM main
+                GROUP BY year;
+            '''
+        )
+        lis={'years':[],'volume':[]}
+        for rows in self.results.fetchall():lis['volume'].append(rows[1]);lis['years'].append(rows[0])
+        self.close_database()
+        return lis
 
     def Tests(self): #USE for debugging.
         self.connect_database(primary_database_name)
@@ -92,7 +134,4 @@ class DbOperation(): #CONVENTION - USE 'Db' as object name to instanciate this c
 
 if __name__=='__main__':
     Db=DbOperation()
-    Db.add_category('mango')
-    Db.add_category('apple')
-    Db.add_category('banana')
-    Db.fetch_rows_all()
+    print(Db.data_for_bar_month())

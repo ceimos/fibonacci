@@ -51,17 +51,22 @@ class GraphScrollView(RecycleView):
 
     def __init__(self, **kwargs):
         super(GraphScrollView,self).__init__(**kwargs)
+        self.data=[{'source':'.\\resources\\cat.jpg'}]
         
-        self.PlotGraph.bar_graph([1,2,3,4],[10,21,12,18],'month','month')
-        self.PlotGraph.bar_graph([5,8,9,10],[10,21,12,18],'year','year')
-        self.PlotGraph.bar_graph([87,67,78,74],[10,21,12,18],'week','week')
-        self.PlotGraph.pie_chart(self.db.fetch_categories(),[x for x in range(len(self.db.fetch_categories()))])
+    def refresh_graphs_n_data(self):
+        self.PlotGraph.bar_graph(self.db.data_for_bar_month()['months'],self.db.data_for_bar_month()['volume'],'month','month')
+        self.PlotGraph.bar_graph(self.db.data_for_bar_year()['years'],self.db.data_for_bar_year()['volume'],'year','year')
+        #self.PlotGraph.bar_graph([1,2,3,4],self.db.data_for_bar_month,'week','week')
+        self.PlotGraph.pie_chart(self.db.fetch_categories(),self.db.data_for_pie_chart())
+        self.data=self.refresh_data()
 
-        self.data=[{'source':'.\\resources\\bar_month.png'},
-                   {'source':'.\\resources\\bar_week.png'},
-                   {'source':'.\\resources\\bar_year.png'},
-                   {'source':'.\\resources\\pie.png'},
-                   {'source':'.\\resources\\cat.jpg'}]
+    def refresh_data(self):
+        data=[{'source':'.\\resources\\bar_month.png'},
+                {'source':'.\\resources\\bar_week.png'},
+                {'source':'.\\resources\\bar_year.png'},
+                {'source':'.\\resources\\pie.png'},
+                {'source':'.\\resources\\cat.jpg'}]
+        return data
     
 if __name__ == '__main__':
     PlotGraph().bar_graph([1,2,3,4],[10,20,12,18],'monthly',time_period='month')

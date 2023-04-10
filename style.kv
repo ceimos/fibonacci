@@ -100,17 +100,9 @@
                     size_hint:[1,0.1]
                     padding:[20,0,20,0,]
                     spacing:10
-                    CustomToggle:
-                        group:'time_period'
-                        text:'week'
-                    CustomToggle:
-                        id:month
-                        group:'time_period'
-                        text:'month'
-                    CustomToggle:
-                        id:month
-                        group:'time_period'
-                        text:'year'
+                    Button:
+                        text:'Refresh Graphs'
+                        on_release:self.parent.parent.parent.parent.parent.refresh_graphs()
                 GraphScrollView:
                     id:GraphScrollView
                     viewclass: 'Graph'

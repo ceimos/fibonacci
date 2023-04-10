@@ -83,6 +83,9 @@ class Main(GridLayout):
         self.ids.payment_mode.text='UPI'
         self.ids.remarks.text=''
         self.ids.category_dropdown.text='Category'
+
+    def refresh_graphs(self):
+        self.ids.GraphScrollView.refresh_graphs_n_data()
     
 class Fibonacci(App): #CODE NAME - FIBONNACI.
     def build(self):
