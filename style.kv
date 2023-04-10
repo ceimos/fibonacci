@@ -100,19 +100,19 @@
                     size_hint:[1,0.1]
                     padding:[20,0,20,0,]
                     spacing:10
-                    ToggleButton:
-                        id:month
+                    CustomToggle:
                         group:'time_period'
                         text:'week'
-                    ToggleButton:
+                    CustomToggle:
                         id:month
                         group:'time_period'
                         text:'month'
-                    ToggleButton:
+                    CustomToggle:
                         id:month
                         group:'time_period'
                         text:'year'
                 GraphScrollView:
+                    id:GraphScrollView
                     viewclass: 'Graph'
                     RecycleBoxLayout:
                         default_size: 1, dp(300)
@@ -209,4 +209,4 @@
         spacing:5
         padding:5
 
-
+<CustomToggle@ToggleButton>:

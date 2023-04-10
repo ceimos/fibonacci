@@ -84,9 +84,9 @@ class Main(GridLayout):
         self.ids.remarks.text=''
         self.ids.category_dropdown.text='Category'
     
-class Fibonnacci(App): #CODE NAME - FIBONNACI.
+class Fibonacci(App): #CODE NAME - FIBONNACI.
     def build(self):
         return Main()
 
 if __name__=="__main__":
-    Fibonnacci().run()
+    Fibonacci().run()
