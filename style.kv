@@ -92,18 +92,37 @@
                         on_release:root.submit()
         TabbedPanelItem:
             text:'ANALYZE'
-            GraphScrollView:
-                viewclass: 'Graph'
-                background_color:[1,1,0,1]
-                RecycleBoxLayout:
-                    default_size: 1, dp(56)
-                    default_size_hint: 0.95, None
-                    default_pos_hint:{'center_x':0.5,'center_y':0.5}
-                    size_hint_y: None
-                    height: self.minimum_height
-                    orientation: 'vertical'
-                    spacing:5
-                    padding:5
+            BoxLayout:
+                orientation:'vertical'
+                spacing:10
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint:[1,0.1]
+                    padding:[20,0,20,0,]
+                    spacing:10
+                    ToggleButton:
+                        id:month
+                        group:'time_period'
+                        text:'week'
+                    ToggleButton:
+                        id:month
+                        group:'time_period'
+                        text:'month'
+                    ToggleButton:
+                        id:month
+                        group:'time_period'
+                        text:'year'
+                GraphScrollView:
+                    viewclass: 'Graph'
+                    RecycleBoxLayout:
+                        default_size: 1, dp(300)
+                        default_size_hint: 0.95, None
+                        default_pos_hint:{'center_x':0.5,'center_y':0.5}
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: 'vertical'
+                        spacing:5
+                        padding:5
 
         TabbedPanelItem:
             text:'VIEW'
@@ -189,3 +208,5 @@
         orientation: 'vertical'
         spacing:5
         padding:5
+
+
