@@ -47,6 +47,18 @@ class MessagePopUp(Popup):
 class Main(GridLayout):
     db=DbOperation()
     categories=ListProperty(db.fetch_categories())
+
+    def on_touch_move(self, touch): #Two Swipe(and switch) tabbed panels.
+        tabs=self.ids.Tabs
+        index_current_tab=tabs.tab_list.index(tabs.current_tab)
+
+        if touch.dx > 60 and index_current_tab < len(tabs.tab_list)-1:
+            tabs.switch_to(tabs.tab_list[index_current_tab+1])
+
+        if touch.dx < -60 and index_current_tab > 0:
+            tabs.switch_to(tabs.tab_list[index_current_tab-1])
+
+        #return super().on_touch_move(touch)
     
     def submit(self):
 
